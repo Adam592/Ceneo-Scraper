@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row my-5">
+            <div class="col bg-light m-5 p-5">
+                <h1>Cel aplikacji</h1>
+                <p>Celem aplikacji jest pobieranie wszystkich dostępnych opinii dla podanego produktu oraz przestawienie odpowiednich statystyk.</p>
+            </div>
+            <div class="col bg-light m-5 p-5">
+                <h1>Jak działa aplikacja</h1>
+                <p>Aplikacja za pomocą biblioteki bs4 i requests pobiera opinie dla kodu podanego produktu ze strony Ceneo.pl, a następnie umożliwia
+                    wyświetlenie statystyk oraz wykresów związanych z wygenerowanymi danymi.
+                </p>
+            </div>
+            <div class="w-100"></div>
+            <div class="col bg-light m-5 p-5">
+                <h1>Zastosowane biblioteki</h1>
+                <p>
+                    BS4, Requests, JSON, Csv, Os, Pandas, Operator, Bootstrap
+                </p>
+            </div>
+            <div class="col bg-light m-5 p-5">
+                <h1>Zastosowane podejścia</h1>
+                <p>Aplikacja stworzona jest w sposób obiektowy oraz z użyciem frameworka Flask i silnika szablonów Jinja</p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

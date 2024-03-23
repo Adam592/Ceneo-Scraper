@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row bg-dark text-light m-5 p-3 d-flex flex-column">
+        <div class="product_name">
+            <p style="font-size: 2em;">{{product_cred['product_name']}}</p>
+        </div>
+        <div class="opinion_stats">
+            <span>Średni wynik: <span>{{product_cred['average_score']}}</span></span>
+            <span>Liczba opini: <span>{{product_cred['review_amount']}}</span></span>
+        </div>
+        <div class="rating">
+            <span>Liczba zalet: <span>{{product_cred['num_of_pros']}}</span></span>
+            <span>Liczba wad: <span>{{product_cred['num_of_cons']}}</span></span>
+        </div>
+        <div class="buttons">
+            <a class="btn btn-light" href="/download_json/{{product_cred['product_id']}}" role="button">Pobierz plik JSON</a>
+            <a class="btn btn-light" href="/download_csv/{{product_cred['product_id']}}" role="button">Pobierz plik CSV</a>
+            <a class="btn btn-light" href="/download_xlsx/{{product_cred['product_id']}}" role="button">Pobierz plik XLSX</a>
+            <a class="btn btn-light" href="/charts/{{product_cred['product_id']}}" role="button">Pokaż wykresy</a>
+        </div>
+    </div>
+</div>
+<div class="container mx-auto">
+
+</div>
+<div class="container bg-dark text-light">
+    <div class="row">
+      <div class="col-sm">
+        <form action="/filter_parameter" method="POST">
+            <div class="form-group">
+              <label for="selector">Rekomendacje</label>
+              <select class="form-control" name="selector" id="selector">
+                <option value="" disabled selected>Wybierz opcje</option>
+                <option value="Polecam">Polecam</option>
+                <option value="Nie polecam">Nie polecam</option>
+                <option value="">Brak</option>
+              </select>
+            </div>
+            <input type="hidden" id="filter_type" name="filter_type" value="recommendation" />
+            <input type="hidden" id="product_id" name="product_id" value="{{product_cred['product_id']}}" />
+            <input type="submit" class="btn btn-light my-3 px-5 d-flex mx-auto" value="Prześlij">
+        </form>
+        <form action="/filter_parameter" method="POST">
+            <div class="form-group">
+              <label for="selector" class="p-1">Weryfikacja</label>
+              <select class="form-control" name="selector" id="selector">
+                <option value="" disabled selected>Wybierz opcje</option>
+                <option value="Opinia zweryfikowana">Opinia zweryfikowana</option>
+                <option value="Opinia niezweryfikowana">Opinia niezweryfikowana</option>
+              </select>
+            </div>
+            <input type="hidden" id="filter_type" name="filter_type" value="verification" />
+            <input type="hidden" id="product_id" name="product_id" value="{{product_cred['product_id']}}" />
+            <input type="submit" class="btn btn-light my-3 px-5 d-flex mx-auto" value="Prześlij">
+        </form>
+      </div>
+      <div class="col-sm">
+        <form action="/filter_parameter" method="POST">
+            <div class="form-group">
+              <label for="selector">Liczba gwiazdek</label>
+              <select class="form-control" name="selector" id="selector">
+                <option value="" disabled selected>Wybierz opcje</option>
+                <option value="5/5">5/5</option>
+                <option value="4,5/5">4,5/5</option>
+                <option value="4/5">4/5</option>
+                <option value="3,5/5">3,5/5</option>
+                <option value="3/5">3/5</option>
+                <option value="2,5/5">2,5/5</option>
+                <option value="2/5">2/5</option>
+                <option value="1,5/5">1,5/5</option>
+                <option value="1/5">1/5</option>
+              </select>
+            </div>
+            <input type="hidden" id="filter_type" name="filter_type" value="stars_given" />
+            <input type="hidden" id="product_id" name="product_id" value="{{product_cred['product_id']}}" />
+            <input type="submit" class="btn btn-light my-3 px-5 d-flex mx-auto" value="Prześlij">
+        </form>
+        <form action="/filter_asc_desc" method="POST">
+            <div class="form-group">
+              <label for="selector">ID opinii</label>
+              <select class="form-control" name="selector" id="selector">
+                <option value="" disabled selected>Wybierz opcje</option>
+                <option value="asc">Rosnąco</option>
+                <option value="desc">Malejąco</option>
+              </select>
+            </div>
+            <input type="hidden" id="filter_type" name="filter_type" value="review_id" />
+            <input type="hidden" id="product_id" name="product_id" value="{{product_cred['product_id']}}" />
+            <input type="submit" class="btn btn-light my-3 px-5 d-flex mx-auto" value="Prześlij">
+        </form>
+      </div>
+      <div class="col-sm">
+        <form action="/filter_asc_desc" method="POST">
+            <div class="form-group">
+              <label for="selector">Data wystawienia opini</label>
+              <select class="form-control" name="selector" id="selector">
+                <option value="" disabled selected>Wybierz opcje</option>
+                <option value="asc">Rosnąco</option>
+                <option value="desc">Malejąco</option>
+              </select>
+            </div>
+            <input type="hidden" id="filter_type" name="filter_type" value="review_date" />
+            <input type="hidden" id="product_id" name="product_id" value="{{product_cred['product_id']}}" />
+            <input type="submit" class="btn btn-light my-3 px-5 d-flex mx-auto" value="Prześlij">
+        </form>
+        <form action="/filter_asc_desc" method="POST">
+            <div class="form-group">
+              <label for="selector">Data zakupu produktu</label>
+              <select class="form-control" name="selector" id="selector">
+                <option value="" disabled selected>Wybierz opcje</option>
+                <option value="asc">Rosnąco</option>
+                <option value="desc">Malejąco</option>
+              </select>
+            </div>
+            <input type="hidden" id="filter_type" name="filter_type" value="buy_date" />
+            <input type="hidden" id="product_id" name="product_id" value="{{product_cred['product_id']}}" />
+            <input type="submit" class="btn btn-light my-3 px-5 d-flex mx-auto" value="Prześlij">
+        </form>
+      </div>
+    </div>
+  </div>
+<div class="table-container d-flex justify-content-center">
+    <table class="table text-light bg-dark w-75 m-5">
+        <thead>
+            <tr>
+                <th scope="col">ID opinii</th>
+                <th scope="col">Nazwa autora</th>
+                <th scope="col">Rekomendacje</th>
+                <th scope="col">Ocena</th>
+                <th scope="col">Weryfikacja</th>
+                <th scope="col">Uznało za pomocne</th>
+                <th scope="col">Uznało za niepomocne</th>
+                <th scope="col">Zawartość</th>
+                <th scope="col">Data wystawienia opinii</th>
+                <th scope="col">Data zakupu</th>
+                <th scope="col">Lista zalet</th>
+                <th scope="col">Lista wad</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for opinion in opinions %}
+            <tr>
+                <td>{{opinion['review_id']}}</td>
+                <td>{{opinion['author_name']}}</td>
+                <td>{{opinion['recommendation']}}</td>
+                <td>{{opinion['stars_given']}}</td>
+                <td>{{opinion['verification']}}</td>
+                <td>{{opinion['helpful']}}</td>
+                <td>{{opinion['unhelpful']}}</td>
+                <td>{{opinion['review_content']}}</td>
+                <td>{{opinion['review_date']}}</td>
+                <td>{{opinion['buy_date']}}</td>
+                <td>{{opinion['list_of_pros']}}</td>
+                <td>{{opinion['list_of_cons']}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
